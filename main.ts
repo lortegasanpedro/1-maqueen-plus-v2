@@ -3,12 +3,13 @@ let distance = 0
 let n = 0
 let R = 0
 let VELOCIDAD = 35
-DFRobotMaqueenPlusV2.init()
-DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eOpen)
-DFRobotMaqueenPlusV2.setBrightness(100)
 let G = 1
 let B = 2
 let P = 3
+DFRobotMaqueenPlusV2.init()
+DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eOpen)
+DFRobotMaqueenPlusV2.setBrightness(100)
+// Leds
 basic.forever(function () {
     if (R <= 3) {
         DFRobotMaqueenPlusV2.setIndexColor(R, 0xff0000)
@@ -37,6 +38,7 @@ basic.forever(function () {
     n += 1
     basic.pause(1000)
 })
+// Logica del motor
 basic.forever(function () {
     distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
     // basic.showNumber(distance)
@@ -57,6 +59,7 @@ basic.forever(function () {
         DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, VELOCIDAD)
     }
 })
+// Muestra la distancia del sensor
 basic.forever(function () {
     basic.showNumber(distance)
 })
