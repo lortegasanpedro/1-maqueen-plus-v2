@@ -2,7 +2,7 @@ let direction = 0
 let distance = 0
 let n = 0
 let R = 0
-let VELOCIDAD = 35
+let VELOCIDAD = 60
 let G = 1
 let B = 2
 let P = 3
@@ -44,7 +44,7 @@ basic.forever(function () {
     // basic.showNumber(distance)
     direction = randint(1, 2)
     // basic.showNumber(direction)
-    if (distance < 20) {
+    if (distance < 30) {
         if (direction == 1) {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
@@ -62,4 +62,4 @@ basic.forever(function () {
 // Muestra la distancia del sensor
 basic.forever(function () {
     basic.showNumber(distance)
-})
+})     
