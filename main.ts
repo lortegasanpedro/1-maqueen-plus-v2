@@ -44,7 +44,7 @@ basic.forever(function () {
     // basic.showNumber(distance)
     direction = randint(1, 2)
     // basic.showNumber(direction)
-    if (distance < 30) {
+    if (distance < 20) {
         if (direction == 1) {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
