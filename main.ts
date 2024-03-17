@@ -49,17 +49,19 @@ basic.forever(function () {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
             basic.pause(1000)
+            DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
         }
         if (direction == 2) {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, 0)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             basic.pause(1000)
+            DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
         }
     } else {
         DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, VELOCIDAD)
     }
 })
 // Muestra la distancia del sensor
-basic.forever(function () {
+/*basic.forever(function () {
     basic.showNumber(distance)
-})     
+})*/
