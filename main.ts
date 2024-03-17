@@ -1,28 +1,4 @@
 /**
- * Muestra la distancia del sensor
- */
-/**
- * Leds
- */
-/**
- * basic.forever(function () {
- * 
- * basic.showNumber(distance)
- * 
- * })
- */
-let direction = 0
-let distance = 0
-let n = 0
-let R = 0
-let VELOCIDAD = 60
-let G = 1
-let B = 2
-let P = 3
-DFRobotMaqueenPlusV2.init()
-DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eOpen)
-DFRobotMaqueenPlusV2.setBrightness(100)
-/**
  * basic.forever(function () {
  * 
  * if (R <= 3) {
@@ -79,29 +55,67 @@ DFRobotMaqueenPlusV2.setBrightness(100)
  * 
  * })
  */
+/**
+ * Leds
+ */
+/**
+ * Muestra la distancia del sensor
+ */
+/**
+ * basic.forever(function () {
+ * 
+ * basic.showNumber(distance)
+ * 
+ * })
+ */
+let direction = 0
+let distance = 0
+let R = 0
+let n = 0
+let VELOCIDAD = 60
+let G = 1
+let B = 2
+let P = 3
+DFRobotMaqueenPlusV2.init()
+DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eClose)
+DFRobotMaqueenPlusV2.setBrightness(100)
 // Logica del motor
+datalogger.setColumnTitles(
+"D1",
+"D2",
+"D3"
+)
 basic.forever(function () {
     distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
     // basic.showNumber(distance)
     direction = randint(1, 2)
     // basic.showNumber(direction)
-    if (distance < 30) {
+    if (distance < 30 && distance > 15) {
         if (direction == 1) {
-            DFRobotMaqueenPlusV2.setIndexColor(1, 0x00ff00)
+            datalogger.log(datalogger.createCV("D1", distance))
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
             basic.pause(1000)
             DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-            DFRobotMaqueenPlusV2.ledBlank()
         }
         if (direction == 2) {
-            DFRobotMaqueenPlusV2.setIndexColor(1, 0x0000ff)
+            datalogger.log(datalogger.createCV("D2", distance))
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, 0)
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             basic.pause(1000)
             DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
             DFRobotMaqueenPlusV2.ledBlank()
         }
+    } else if (distance < 10 && distance > 0) {
+        datalogger.log(datalogger.createCV("D3", distance))
+        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD)
+        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, VELOCIDAD)
+        basic.pause(1000)
+        DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     } else {
         DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, VELOCIDAD)
     }
