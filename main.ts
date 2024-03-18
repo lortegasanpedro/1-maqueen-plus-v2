@@ -108,12 +108,13 @@ basic.forever(function () {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, VELOCIDAD * 2)
             basic.pause(1000)
             DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-            DFRobotMaqueenPlusV2.ledBlank()
         }
     } else if (distance < 10 && distance > 0) {
         datalogger.log(datalogger.createCV("D3", distance))
-        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD)
-        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, VELOCIDAD)
+        DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
+        DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
+        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eBackward, VELOCIDAD)
+        DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eBackward, VELOCIDAD)
         basic.pause(1000)
         DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     } else {
