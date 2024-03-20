@@ -8,7 +8,7 @@ function direccion () {
     }
 }
 function bacward () {
-    datalogger.log(datalogger.createCV("D3", distance))
+    //datalogger.log(datalogger.createCV("D3", distance))
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eBackward, VELOCIDAD)
@@ -18,7 +18,7 @@ function bacward () {
     direccion()
 }
 function direction2 () {
-    datalogger.log(datalogger.createCV("D2", distance))
+    //datalogger.log(datalogger.createCV("D2", distance))
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, 0)
@@ -27,7 +27,7 @@ function direction2 () {
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
 }
 function direction1 () {
-    datalogger.log(datalogger.createCV("D1", distance))
+    //datalogger.log(datalogger.createCV("D1", distance))
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, VELOCIDAD * 2)
@@ -57,14 +57,19 @@ VELOCIDAD = 60
 let G = 1
 let B = 2
 let P = 3
+let x = 0
+let y = 0
+let z = 0
 DFRobotMaqueenPlusV2.init()
 DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eClose)
 DFRobotMaqueenPlusV2.setBrightness(100)
 // Logica del motor
 datalogger.setColumnTitles(
-"D1",
-"D2",
-"D3"
+"forward",
+"backward",
+"right",
+"left",
+"speed"
 )
 /**
  * basic.forever(function () {
@@ -125,7 +130,6 @@ datalogger.setColumnTitles(
  */
 basic.forever(function () {
     distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
-    // basic.showNumber(distance)
     if (distance < 30 && distance > 15) {
         direccion()
     } else if (distance < 10 && distance > 0) {
@@ -134,3 +138,32 @@ basic.forever(function () {
         DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, VELOCIDAD)
     }
 })
+
+basic.forever(function () {
+    x = input.acceleration(Dimension.X)
+    y = input.acceleration(Dimension.Y)
+    z = input.acceleration(Dimension.Z)
+    // Adjust robot movement based on accelerometer data
+    if (x > 0) {
+        // Move robot forward
+        datalogger.log(datalogger.createCV("forward", x))
+    } else if (x < 0) {
+        // Move robot backward
+        datalogger.log(datalogger.createCV("backward", x))
+    }
+
+    if (y > 0) {
+        // Turn robot right
+        datalogger.log(datalogger.createCV("right", y))
+    } else if (y < 0) {
+        // Turn robot left
+        datalogger.log(datalogger.createCV("left", y))
+    }
+
+    // Adjust robot speed based on z-axis acceleration
+    // (higher acceleration = higher speed)
+    let speed = Math.map(z, 0, 1024, 0, 100)
+    // Control the robot's motors with the calculated speed
+    datalogger.log(datalogger.createCV("speed", speed))
+})
+
