@@ -12,6 +12,7 @@
  * })
  */
 function direccion () {
+    serial.writeLine("direccion init")
     direction = randint(1, 2)
     if (direction == 1) {
         directionLeftMotor()
@@ -19,6 +20,7 @@ function direccion () {
     if (direction == 2) {
         directionRightMotor()
     }
+    serial.writeLine("direccion end")
 }
 function bacward () {
     // datalogger.log(datalogger.createCV("D3", distance))
@@ -29,6 +31,7 @@ function bacward () {
     basic.pause(1000)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     direccion()
+    serial.writeLine("backward END")
 }
 function directionRightMotor () {
     // datalogger.log(datalogger.createCV("D2", distance))
@@ -36,7 +39,7 @@ function directionRightMotor () {
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, 0)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, velocidad * 2)
-    basic.pause(1000)
+    basic.pause(pauseGiro)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
 }
 function directionLeftMotor () {
@@ -45,7 +48,7 @@ function directionLeftMotor () {
     DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, velocidad * 2)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
-    basic.pause(1000)
+    basic.pause(pauseGiro)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
 }
 let distance = 0
@@ -54,7 +57,8 @@ let z = 0
 let y = 0
 let x = 0
 let direction = 0
-let velocidad = 0
+let velocidad = 50
+let pauseGiro= 500
 let roll = 0
 /*
 let n = 0
@@ -130,6 +134,7 @@ DFRobotMaqueenPlusV2.setBrightness(100)
 // })
 basic.forever(function () {
     distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
+    serial.writeLine("Robot READ D: " + distance)
     if (distance < 30 && distance > 15) {
         direccion()
     } else if (distance < 10 && distance > 0) {
@@ -138,10 +143,12 @@ basic.forever(function () {
         DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, velocidad)
     }
     roll = input.rotation(Rotation.Roll)
-    if (roll < 40 && roll > -40) {
-        basic.showArrow(ArrowNames.East)
-    } else {
-        basic.showArrow(ArrowNames.West)
+    if (roll < 10 && roll > -10) {
+        // basic.clearScreen()
+    } else if (roll < -11){
+        // basic.showArrow(ArrowNames.West)   
+    } else if (roll > 11){
+        // basic.showArrow(ArrowNames.East)
     }
     basic.pause(30)
 })
