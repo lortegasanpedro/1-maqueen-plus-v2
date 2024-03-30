@@ -40,7 +40,13 @@ function directionLeftMotor () {
 }
 
 input.onSound(DetectedSound.Loud, function () {
-    aplauso = !aplauso
+    if (aplauso) {
+        DFRobotMaqueenPlusV2.setIndexColor(1, 0xff0000)
+        aplauso = false
+    } else {
+        DFRobotMaqueenPlusV2.setIndexColor(1, 0x0000ff)
+        aplauso = true
+    }
 })
 
 let roll = 0
@@ -151,17 +157,19 @@ basic.forever(function () {
         roll = input.rotation(Rotation.Roll)
         // basic.showArrow(ArrowNames.West)
         // basic.showArrow(ArrowNames.East)
-        if (roll < 10 && roll > -10) {
+        if (roll < 30 && roll > -30) {
             // basic.clearScreen()
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (roll < -11) {
+        } else if (roll < -21) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (roll > 11) {
+        } else if (roll > 21) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
         }
+    } else {
+        DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     }
     basic.pause(30)
 })
