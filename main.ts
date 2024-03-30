@@ -18,7 +18,7 @@ function bacward () {
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eBackward, velocidad)
     basic.pause(1000)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-    direccion()
+     ()
     serial.writeLine("bacward End")
 }
 function directionRightMotor () {
@@ -42,12 +42,11 @@ function directionLeftMotor () {
 
 input.onSound(DetectedSound.Loud, function () {
     serial.writeLine("DetectedSound.Loud")
+    aplauso = !aplauso
     if (aplauso) {
-        DFRobotMaqueenPlusV2.setIndexColor(1, 0xff0000)
-        aplauso = false
+        DFRobotMaqueenPlusV2.setIndexColor(3, 0xff0000)
     } else {
-        DFRobotMaqueenPlusV2.setIndexColor(1, 0x0000ff)
-        aplauso = true
+        DFRobotMaqueenPlusV2.setIndexColor(3, 0x0000ff)
     }
 })
 
@@ -61,7 +60,7 @@ let x = 0
 let y = 0
 let z = 0
 let speed = 0
-velocidad = 0
+velocidad = 50
 pauseGiro = 500
 // let n = 0
 // let R = 0
@@ -71,7 +70,7 @@ pauseGiro = 500
 DFRobotMaqueenPlusV2.init()
 DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eAllLed, MyEnumSwitch.eClose)
 DFRobotMaqueenPlusV2.setBrightness(100)
-input.setSoundThreshold(SoundThreshold.Loud, 128)
+input.setSoundThreshold(SoundThreshold.Loud, 60)
 /**
  * Logica del motor
  */
@@ -146,7 +145,7 @@ input.setSoundThreshold(SoundThreshold.Loud, 128)
 // 
 // })
 basic.forever(function () {
-    serial.writeLine("Robot forever Init : ")
+    //serial.writeLine("Robot forever Init : ")
     if (aplauso) {    
         distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
         // serial.writeLine("Robot READ D: " + distance)
@@ -178,7 +177,6 @@ basic.forever(function () {
     } else {
         DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     }
-    serial.writeLine("Robot forever End : ")
+    //serial.writeLine("Robot forever End : ")
     basic.pause(30)
-
 })
