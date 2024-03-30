@@ -18,7 +18,7 @@ function bacward () {
     basic.pause(1000)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     direccion()
-    serial.writeLine("backward END")
+    //serial.writeLine("backward END")
 }
 function directionRightMotor () {
     // datalogger.log(datalogger.createCV("D2", distance))
