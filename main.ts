@@ -1,6 +1,6 @@
-// serial.writeLine("direccion end")
+
 function direccion () {
-    serial.writeLine("direccion init")
+//    serial.writeLine("direccion init")
     direction = randint(1, 2)
     if (direction == 1) {
         directionLeftMotor()
@@ -8,36 +8,36 @@ function direccion () {
     if (direction == 2) {
         directionRightMotor()
     }
-    serial.writeLine("direccion end")
+ //   serial.writeLine("direccion end")
 }
 // serial.writeLine("backward END")
 function backward () {
-    serial.writeLine("bacward Init")
+//    serial.writeLine("bacward Init")
     // datalogger.log(datalogger.createCV("D3", distance))
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eBackward, velocidad)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eBackward, velocidad)
     basic.pause(1000)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     direccion()
-    serial.writeLine("bacward End")
+//    serial.writeLine("bacward End")
 }
 function directionRightMotor () {
-    serial.writeLine("directionRightMotor Init")
+//    serial.writeLine("directionRightMotor Init")
     // datalogger.log(datalogger.createCV("D2", distance))
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, 0)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, velocidad * 2)
     basic.pause(pauseGiro)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-    serial.writeLine("directionRightMotor End")
+//    serial.writeLine("directionRightMotor End")
 }
 function directionLeftMotor () {
     // datalogger.log(datalogger.createCV("D1", distance))
-    serial.writeLine("directionLeftMotor Init")
+//    serial.writeLine("directionLeftMotor Init")
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eLeftMotor, MyEnumDir.eForward, velocidad * 2)
     DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eRightMotor, MyEnumDir.eForward, 0)
     basic.pause(pauseGiro)
     DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-    serial.writeLine("directionLeftMotor End")
+//    serial.writeLine("directionLeftMotor End")
 }
 /*
 input.onSound(DetectedSound.Loud, function () {
@@ -146,14 +146,14 @@ DFRobotMaqueenPlusV2.setBrightness(100)
 // })
 basic.forever(function () {
     //serial.writeLine("Robot forever Init : ")
-    if (input.soundLevel() > 138) {
+    if (input.soundLevel() > 128) {
         aplauso = !aplauso
         if (aplauso) {
             DFRobotMaqueenPlusV2.setIndexColor(3, 0xff0000)
         } else {
             DFRobotMaqueenPlusV2.setIndexColor(3, 0x0000ff)
         }
-        basic.pause(50)
+        basic.pause(60)
     }
     if (aplauso) {
         distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
