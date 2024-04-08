@@ -177,20 +177,20 @@ basic.forever(function () {
         x = input.acceleration(Dimension.X)
         // basic.showArrow(ArrowNames.West)
         // basic.showArrow(ArrowNames.East)
-        if (x < 400 && x > 400) {
+        if (x > -100 && x < 100) {
             // basic.clearScreen()
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (x > -401) {
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (x > 401) {
+        } else if (x > -101 && x < -1023) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
-        } else {
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
+        } else if (x > 101 && x < 1023) {
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
-        }
+        } // else {
+        //    DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
+        //    DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
+        //}
     //} else {
     //    DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
     //}
