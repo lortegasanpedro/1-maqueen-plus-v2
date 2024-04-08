@@ -66,7 +66,7 @@ let z = 0
 let y = 0
 let x = 0
 let aplauso = true
-velocidad = 50
+velocidad = 0
 pauseGiro = 500
 // let n = 0
 // let R = 0
@@ -155,7 +155,7 @@ DFRobotMaqueenPlusV2.setBrightness(100)
 // })
 basic.forever(function () {
     // serial.writeLine("Robot forever Init : ")
-    if (input.soundLevel() > 168) {
+    /*if (input.soundLevel() > 178) {
         aplauso = !(aplauso)
         if (aplauso) {
             DFRobotMaqueenPlusV2.setIndexColor(3, 0xff0000)
@@ -163,8 +163,8 @@ basic.forever(function () {
             DFRobotMaqueenPlusV2.setIndexColor(3, 0x0000ff)
         }
         basic.pause(60)
-    }
-    if (aplauso) {
+    }*/
+    //if (aplauso) {
         distance = DFRobotMaqueenPlusV2.readUltrasonic(DigitalPin.P13, DigitalPin.P14)
         // serial.writeLine("Robot READ D: " + distance)
         if (distance < 30 && distance > 15) {
@@ -174,26 +174,26 @@ basic.forever(function () {
         } else {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, velocidad)
         }
-        roll = input.rotation(Rotation.Roll)
+        x = input.acceleration(Dimension.X)
         // basic.showArrow(ArrowNames.West)
         // basic.showArrow(ArrowNames.East)
-        if (roll < 40 && roll > -40) {
+        if (x < 400 && x > 400) {
             // basic.clearScreen()
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (roll < -41 && roll > -500) {
+        } else if (x > -401) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (roll > 41 && roll > 500) {
+        } else if (x > 401) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
         } else {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
         }
-    } else {
-        DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
-    }
+    //} else {
+    //    DFRobotMaqueenPlusV2.controlMotorStop(MyEnumMotor.eAllMotor)
+    //}
     // serial.writeLine("Robot forever End : ")
     basic.pause(30)
 })
