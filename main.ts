@@ -177,11 +177,11 @@ basic.forever(function () {
         x = input.acceleration(Dimension.X)
         // basic.showArrow(ArrowNames.West)
         // basic.showArrow(ArrowNames.East)
-        if (x < 300 && x > -300) {
+        if (x < 200 && x > -200) {
             // basic.clearScreen()
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (x > 301 && x < 1023) {
+        } else if (x > 201 && x < 1023) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
         } else {
