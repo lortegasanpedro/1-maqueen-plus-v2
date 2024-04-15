@@ -62,12 +62,14 @@ let direction = 0
 let pauseGiro = 0
 let velocidad = 0
 let speed = 0
-let z = 0
-let y = 0
-let x = 0
+//let z = 0
+//let y = 0
+//let x = 0
 let aplauso = true
 velocidad = 50
 pauseGiro = 500
+let compass = 0
+let compassRead = 0;
 // let n = 0
 // let R = 0
 // let G = 1
@@ -174,20 +176,17 @@ basic.forever(function () {
         } else {
             DFRobotMaqueenPlusV2.controlMotor(MyEnumMotor.eAllMotor, MyEnumDir.eForward, velocidad)
         }
-        x = input.acceleration(Dimension.X)
+        compassRead = input.compassHeading();
         // basic.showArrow(ArrowNames.West)
         // basic.showArrow(ArrowNames.East)
-        if (x < 200 && x > -200) {
+        if (compassRead > 0  && compassRead < 45) {
             // basic.clearScreen()
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else if (x > 201 && x < 1023) {
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
-        } else {
-            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
             DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
-        } // else {
+        } else  {
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eClose)
+            DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eClose)
+        }
         //    DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eLeftLed, MyEnumSwitch.eOpen)
         //    DFRobotMaqueenPlusV2.controlLED(MyEnumLed.eRightLed, MyEnumSwitch.eOpen)
         //}
